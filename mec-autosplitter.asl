@@ -1,11 +1,13 @@
 state("MirrorsEdgeCatalyst")
 {
-    bool isLoading : "MirrorsEdgeCatalyst.exe", 0x1424082b8, 0x4C1;
+    byte loading : "MirrorsEdgeCatalyst.exe", 0x24082b8, 0x4c1;
 }
-
+ 
 isLoading
 {
-	if(current.isLoading)
-		return true;
-	return false;
+    if(Convert.ToBoolean(current.loading))
+    {
+        return true;
+    }
+    return false;
 }
