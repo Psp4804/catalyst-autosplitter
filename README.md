@@ -2,7 +2,7 @@
 
 This automatically pauses the timer in Mirror's Edge: Catalyst whenever you are loading
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+[![Youtube Demo](https://img.youtube.com/vi/TEryG6VuonI/0.jpg)](https://www.youtube.com/watch?v=TEryG6VuonI)
 
 ##Additional Credits
 
