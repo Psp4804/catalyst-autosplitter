@@ -1,16 +1,26 @@
-state("MirrorsEdgeCatalyst")
+state("MirrorsEdgeCatalyst", "v1.0")
 {
     byte loading : "MirrorsEdgeCatalyst.exe", 0x24082b8, 0x4c1;
     //int crosshairIsShown : "MirrorsEdgeCatalyst.exe", 0x23E5800;
 	float xCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x210;
 	float yCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x214;
 	float zCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x218;
-	//byte endBanner : "MirrorsEdgeCatalyst.exe", ;
+	byte endBanner : "MirrorsEdgeCatalyst.exe", 0x2405718, 0x3f8, 0x160, 0x0, 0x90, 0xf8;
+}
+init
+{
+	if(modules.First().ModuleMemorySize.ToString() == vars.version1)
+		version = "v1.0";
 }
 startup
 {
+	vars.version1 = "126324736";
 	vars.splitIteration = 0;
+	vars.lastSplit = timer.CurrentTime.RealTime;
 	settings.Add("all_missions", true, "Enabled Splits");
+	//an array i have to make so i can use these fun names
+	string[] comparison = {"blumage", "howtouserunnervision", "dodgecenter", "thedashthatyouloseandhavetocompletelyrestartifyouaccidentiallypressthewrongbuttonbecausethisgamehasadumbtutorialsystem", "icarusissalty", "antennaglitch", "plasticisthebestcharacterinthisgame", "pressqtowin", "taipei101", "icarusiskindacooliguess", "novemberisthenewblack", "turfwar", "htcvive", "antennaglitch2", "everyoneknowsthisleveliswayyyytoofaroutsideofthemapregion", "cityofember", "seeprisonerx", "worstmissioninthegame", "pipole"};
+	vars.compare = comparison;
 	settings.SetToolTip("all_missions", "Splits at the end flag for every mission");
 	settings.Add("blumage", true, "Release", "all_missions");
 	settings.Add("howtouserunnervision", false, "Follow the Red", "all_missions");
@@ -32,33 +42,38 @@ startup
 	settings.Add("worstmissioninthegame", true, "Tickets, No Thanks!", "all_missions");
 	settings.Add("pipole", true, "The Shard", "all_missions");
 }
-/*
+
 split
 {
-	vars.splitIteration++;
-	//if()
-	//{
-		if(Convert.ToBoolean(current.endBanner) && !Convert.ToBoolean(old.endBanner))
-		{
-			return true;
-		}
-	//}
-	return false;
-}
-*/
-
-//Autostart temporarily disabled until I take the time to fix it.
-/*
-start
-{
-	float drop = 5.971168f;
-	if(current.yCoord.Equals(drop) && String.Format("{0:0,0.0000000}", old.yCoord) == "06.0817700") //idrk
+	if(Convert.ToBoolean(current.endBanner).Equals(true) && Convert.ToBoolean(old.endBanner).Equals(false))
 	{
-		return true;
+		if((timer.CurrentTime.RealTime - vars.lastSplit).TotalSeconds > 15)
+		{
+			if(settings[vars.compare[vars.splitIteration]])
+			{
+				vars.splitIteration = vars.splitIteration + 1;
+				vars.lastSplit = timer.CurrentTime.RealTime;
+				return true;
+			}
+			vars.splitIteration = vars.splitIteration + 1;
+			vars.lastSplit = timer.CurrentTime.RealTime;
+		}
 	}
 	return false;
 }
-*/
+
+start
+{
+	vars.splitIteration = 0;
+	vars.lastSplit = timer.CurrentTime.RealTime;
+	/*float drop = 5.971168f;
+	if(current.yCoord.Equals(drop) && String.Format("{0:0,0.0000000}", old.yCoord) == "06.0817700") //idrk
+	{
+		return true;
+	}*/
+	return false;
+}
+
 isLoading
 {
     if(Convert.ToBoolean(current.loading))
