@@ -8,7 +8,7 @@ state("MirrorsEdgeCatalyst", "v1.0")
 }
 state("MirrorsEdgeCatalyst", "v1.1")
 {
-    byte loading : "MirrorsEdgeCatalyst.exe", 0x2593BA8, 0x374;
+    byte loading : "MirrorsEdgeCatalyst.exe", 0x240c2b8, 0x4c1;
 	float xCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x210;
 	float yCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x214;
 	float zCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x218;
