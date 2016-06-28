@@ -1,7 +1,14 @@
 state("MirrorsEdgeCatalyst", "v1.0")
 {
     byte loading : "MirrorsEdgeCatalyst.exe", 0x24082b8, 0x4c1;
-    //int crosshairIsShown : "MirrorsEdgeCatalyst.exe", 0x23E5800;
+	float xCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x210;
+	float yCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x214;
+	float zCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x218;
+	byte endBanner : "MirrorsEdgeCatalyst.exe", 0x2405718, 0x3f8, 0x160, 0x0, 0x90, 0xf8;
+}
+state("MirrorsEdgeCatalyst", "v1.1")
+{
+    byte loading : "MirrorsEdgeCatalyst.exe", 0x2593BA8, 0x374;
 	float xCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x210;
 	float yCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x214;
 	float zCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x218;
@@ -10,11 +17,21 @@ state("MirrorsEdgeCatalyst", "v1.0")
 init
 {
 	if(modules.First().ModuleMemorySize.ToString() == vars.version1)
+	{
 		version = "v1.0";
+		return true;
+	}
+	else if(modules.First().ModuleMemorySize.ToString() == vars.version2)
+	{
+		version = "v1.1";
+		return true;
+	}
+	return false;
 }
 startup
 {
 	vars.version1 = "126324736";
+	vars.version2 = "120041472";
 	vars.splitIteration = 0;
 	vars.lastSplit = timer.CurrentTime.RealTime;
 	settings.Add("all_missions", true, "Enabled Splits");
@@ -76,9 +93,5 @@ start
 
 isLoading
 {
-    if(Convert.ToBoolean(current.loading))
-    {
-        return true;
-    }
-    return false;
+    return Convert.ToBoolean(current.loading);
 }
