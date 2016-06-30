@@ -67,6 +67,7 @@ update
 		vars.lastSplit = timer.CurrentTime.RealTime;
 	}
 }
+/*
 split
 {
 	if(Convert.ToBoolean(current.endBanner).Equals(true) && Convert.ToBoolean(old.endBanner).Equals(false))
@@ -85,7 +86,7 @@ split
 	}
 	return false;
 }
-
+*/ //Inconsistently bad.
 start
 {
 	/*float drop = 5.971168f;
