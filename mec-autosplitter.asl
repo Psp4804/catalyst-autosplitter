@@ -9,10 +9,11 @@ state("MirrorsEdgeCatalyst", "v1.0")
 state("MirrorsEdgeCatalyst", "v1.1")
 {
     byte loading : "MirrorsEdgeCatalyst.exe", 0x240c2b8, 0x4c1;
-	//float xCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x210;
-	//float yCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x214;
-	//float zCoord : "MirrorsEdgeCatalyst.exe", 0x023D6028, 0x18, 0x20, 0x18, 0x838, 0x218;
-	byte endBanner : "MirrorsEdgeCatalyst.exe", 0x0214C270, 0x38, 0x3f8, 0x160, 0x0, 0x90, 0xf8;
+	float xCoord : "MirrorsEdgeCatalyst.exe", 0x02578A68, 0x70, 0x98, 0x238, 0x20, 0x22d0;
+	float yCoord : "MirrorsEdgeCatalyst.exe", 0x02578A68, 0x70, 0x98, 0x238, 0x20, 0x22d4;
+	float zCoord : "MirrorsEdgeCatalyst.exe", 0x02578A68, 0x70, 0x98, 0x238, 0x20, 0x22d8;
+	byte endBanner : "MirrorsEdgeCatalyst.exe", 0x0237DEB8, 0x218, 0x2f0, 0x8, 0x7bc;
+	byte autostart : "MirrorsEdgeCatalyst.exe", 0x02568258, 0x530, 0x10, 0x20, 0xc0;
 }
 init
 {
@@ -36,7 +37,7 @@ startup
 	vars.lastSplit = timer.CurrentTime.RealTime;
 	settings.Add("all_missions", true, "Enabled Splits");
 	//an array i have to make so i can use these fun names
-	string[] comparison = {"blumage", "howtouserunnervision", "dodgecenter", "thedashthatyouloseandhavetocompletelyrestartifyouaccidentiallypressthewrongbuttonbecausethisgamehasadumbtutorialsystem", "icarusissalty", "antennaglitch", "plasticisthebestcharacterinthisgame", "pressqtowin", "taipei101", "icarusiskindacooliguess", "novemberisthenewblack", "turfwar", "htcvive", "antennaglitch2", "everyoneknowsthisleveliswayyyytoofaroutsideofthemapregion", "cityofember", "seeprisonerx", "worstmissioninthegame", "pipole"};
+	string[] comparison = {"blumage", "howtouserunnervision", "dodgecenter", "thedashthatyouloseandhavetocompletelyrestartifyouaccidentiallypressthewrongbuttonbecausethisgamehasadumbtutorialsystem", "icarusissalty", "antennaglitch", "plasticisthebestcharacterinthisgame", "pressqtowin", "taipei101", "icarusiskindacooliguess", "novemberisthenewblack", "turfwar", "htcvive", "antennaglitch2", "everyoneknowsthisleveliswayyyytoofaroutsideofthemapregion", "cityofember", "seeprisonerx", "worstmissioninthegame"};
 	vars.compare = comparison;
 	settings.SetToolTip("all_missions", "Splits at the end flag for every mission");
 	settings.Add("blumage", true, "Release", "all_missions");
@@ -57,7 +58,7 @@ startup
 	settings.Add("cityofember", true, "Thy Kingdom Come", "all_missions");
 	settings.Add("seeprisonerx", true, "Family Matters", "all_missions");
 	settings.Add("worstmissioninthegame", true, "Tickets, No Thanks!", "all_missions");
-	settings.Add("pipole", true, "The Shard", "all_missions");
+	//settings.Add("pipole", true, "The Shard", "all_missions");
 }
 update
 {
@@ -67,10 +68,14 @@ update
 		vars.lastSplit = timer.CurrentTime.RealTime;
 	}
 }
-/*
+
 split
 {
-	if(Convert.ToBoolean(current.endBanner).Equals(true) && Convert.ToBoolean(old.endBanner).Equals(false))
+	print(current.xCoord.ToString());
+	print(current.yCoord.ToString());
+	print(current.zCoord.ToString());
+	print("--------------------");
+	if(current.endBanner == 154 && old.endBanner != 154)
 	{
 		if((timer.CurrentTime.RealTime - vars.lastSplit).TotalSeconds > 15)
 		{
@@ -84,9 +89,15 @@ split
 			vars.lastSplit = timer.CurrentTime.RealTime;
 		}
 	}
+	
+	//ENDING SPLIT
+	
+	if(old.yCoord > 1400 && current.yCoord < 100 && current.yCoord > 10)
+	{
+		return true;
+	}
 	return false;
 }
-*/ //Inconsistently bad.
 start
 {
 	/*float drop = 5.971168f;
@@ -94,6 +105,9 @@ start
 	{
 		return true;
 	}*/
+	
+	if(current.autostart == 0 && old.autostart == 1 && current.yCoord < 6 && current.xCoord > 1000)
+		return true;
 	return false;
 }
 

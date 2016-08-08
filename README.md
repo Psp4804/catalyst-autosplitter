@@ -7,4 +7,4 @@ This automatically pauses the timer in Mirror's Edge: Catalyst whenever you are 
 ##Additional Credits
 
 * Fatalis - helping me with some memory management stuff
-* CaptainAnderz - working on some other memory stuff to come
+* Dread - finding the banner value that allows autosplitting to be possible in v1.1
