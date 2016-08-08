@@ -106,7 +106,7 @@ start
 		return true;
 	}*/
 	
-	if(current.autostart == 0 && old.autostart == 1 && current.yCoord < 6 && current.xCoord > 1000)
+	if(current.autostart == 0 && old.autostart == 1 && current.yCoord < 6 && current.zCoord > 1000)
 		return true;
 	return false;
 }
