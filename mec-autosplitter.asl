@@ -79,14 +79,18 @@ split
 	{
 		if((timer.CurrentTime.RealTime - vars.lastSplit).TotalSeconds > 15)
 		{
-			if(settings[vars.compare[vars.splitIteration]])
+			vars.lastSplit = timer.CurrentTime.RealTime;
+			// If we've checked every setting already (for 100%/all missions)
+			if(vars.splitIteration > 17)
 			{
-				vars.splitIteration = vars.splitIteration + 1;
-				vars.lastSplit = timer.CurrentTime.RealTime;
 				return true;
 			}
+			// Incase setting is disabed we still want to increment this
 			vars.splitIteration = vars.splitIteration + 1;
-			vars.lastSplit = timer.CurrentTime.RealTime;
+			if(settings[vars.compare[vars.splitIteration - 1]])
+			{
+				return true;
+			}
 		}
 	}
 	
